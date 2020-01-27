@@ -1,0 +1,47 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script>
+        $(function () {
+            $.ajax({
+                dataType: "json",
+                type: "GET",
+                url: "/Home/GetListaDados",
+                success: function (dados) {
+                    $(dados).each(function (i) {
+                        document.writeln("<p>Nome: " + dados[i].Nome + " | URL: " + dados[i].URL + "</p>");
+                    });
+                },
+                error: function () {
+                    alert("Ocorreu um erro ao carregar os dados");
+                }
+            });            
+
+            $(function () {
+                $.ajax({
+                    dataType: "json",
+                    type: "POST",
+                    url: "/Home/GetItens",
+                    data: { quantidade: 10 },
+                    success: function (dados) {
+                        $(dados).each(function (i) {
+                            document.writeln("<p>Nº: " + dados[i].Item + "</p>");
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
